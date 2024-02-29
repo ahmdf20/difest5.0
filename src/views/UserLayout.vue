@@ -3,6 +3,7 @@ import UserFooter from '@/views/layout/UserFooter.vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
 import { computed, onBeforeMount } from 'vue'
 import { IconMenu2 } from '@tabler/icons-vue'
+import Swal from 'sweetalert2';
 const route = useRoute()
 const router = useRouter()
 
@@ -16,9 +17,24 @@ onBeforeMount(() => {
   if (role?.role !== route.meta.metaMode) {
     router.push('/blocked')
   }
-  // console.log(route.meta.metaMode != role.role)
 })
 
+const handleLogout = () => {
+  Swal.fire({
+  title: "Logout?",
+  text: "Apakah anda ingin logout? Apakah sudah melengkapi kelengkapan karya?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Ya"
+}).then((result) => {
+  if (result.isConfirmed) {
+    localStorage.clear()
+    router.push('/login')
+  }
+});
+}
 </script>
 
 
@@ -44,7 +60,8 @@ onBeforeMount(() => {
                 }">{{ m.name }}</router-link>
       </li>
       <li>
-        <router-link to="/login">Logout</router-link>
+        <button @click="handleLogout">Logout</button>
+        <!-- <router-link to="/login">Logout</router-link> -->
       </li>
     </ul>
   </div>

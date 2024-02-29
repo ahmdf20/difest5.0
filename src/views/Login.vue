@@ -21,7 +21,7 @@ const handleLogin = async () => {
         token: response.data.data.token
       }
       localStorage.setItem('user', JSON.stringify(data))
-      if (data.role == 'admin') {
+      if (data.role == 'admin' || data.role == 'commite') {
         router.push('/admin/dashboard')
       }
       if (data.role == 'participant') {

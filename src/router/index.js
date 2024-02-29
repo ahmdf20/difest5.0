@@ -111,15 +111,31 @@ const router = createRouter({
         },
         {
           path: 'profile',
-          name: 'Profile',
-          meta: {
-            metaName: 'user-profile',
-            showMenu: true,
-            metaMode: 'participant',
-            roles: ['participant'],
-            authRequired: true,
-          },
-          component: SectionUserProfile
+          redirect: '/user/profile/',
+          children: [
+            {
+              path: '',
+              name: 'My Profile',
+              meta: {
+                showMenu: true,
+                metaName: 'user-profile',
+                metaMode: 'participant',
+                authRequired: true
+              },
+              component: SectionUserProfile
+            },
+            {
+              path: 'ubah-password',
+              name: 'Ubah Password Participant',
+              meta: {
+                showMenu: false,
+                metaName: 'ubah-password-participant',
+                metaMode: 'participant',
+                authRequired: true
+              },
+              component: () => import('../components/user/SectionUbahPassword.vue')
+            }
+          ],
         },
       ]
     },
@@ -136,7 +152,7 @@ const router = createRouter({
             metaName: 'dashboard-admin',
             showMenu: true,
             metaMode: 'admin',
-            roles: ['admin'],
+            roles: ['admin', 'commite'],
             authRequired: true,
           },
           component: SectionDashboardAdmin
@@ -152,7 +168,7 @@ const router = createRouter({
                 metaName: 'participant-manage',
                 showMenu: true,
                 metaMode: 'admin',
-                roles: ['admin'],
+                roles: ['admin', 'commite'],
                 authRequired: true,
               },
               component: SectionParticipantManage,
@@ -178,7 +194,7 @@ const router = createRouter({
             metaName: 'participant-submission',
             showMenu: true,
             metaMode: 'admin',
-            roles: ['admin'],
+            roles: ['admin', 'commite'],
             authRequired: true,
           },
           component: SectionParticipantSubmission
@@ -204,8 +220,6 @@ const checkCurrentRole = () => {
 
 router.beforeEach((to, from, next) => {
   const role = checkCurrentRole()
-  // console.log(`Navigation to : ${to.name}`)
-  // console.log(dataAuth?.role)
   if (chechAuth() == false && to.meta.authRequired) {
     return next({ path: '/login' })
   } 

@@ -67,12 +67,12 @@
               </tr>
           </tbody>
         </table>
-        <div class="flex justify-center mt-4">
-          <ul class="flex items-center">
+        <div class="flex justify-end mt-4">
+          <ul class="flex items-center gap-1">
             <li v-for="pageNumber in getPaginationNumbers()" :key="pageNumber">
               <button
-                class="px-4 py-2 text-sm font-medium rounded-md border bg-success hover:bg-gray-100"
-                :class="{ 'bg-gray-200': currentPage.value === pageNumber }"
+                class="px-4 py-2 text-sm font-medium rounded-md border bg-neutral-100"
+                :class="{ 'bg-success': currentPage.value === pageNumber }"
                 @click="handlePageChange(pageNumber)"
               >
                 {{ pageNumber }}

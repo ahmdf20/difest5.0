@@ -1,25 +1,41 @@
 <script setup>
 import UserFooter from '@/views/layout/UserFooter.vue'
 import { useRoute, useRouter, RouterLink } from 'vue-router'
-import { computed, onMounted, onBeforeMount } from 'vue'
+import { computed, onMounted, onBeforeMount, ref } from 'vue'
 import { IconMenu2 } from '@tabler/icons-vue'
+import Swal from 'sweetalert2'
 const route = useRoute()
 const router = useRouter()
+const user = ref(JSON.parse(localStorage.getItem('user')))
 
 const Menus = computed(() => {
   return router
   .getRoutes()
-  .filter((r) =>  r.name && r.meta.showMenu == true && r.meta.metaMode == 'admin')
+  .filter((r) => r.name && r.meta.showMenu == true && r.meta.metaMode == 'admin')
 })
 
 onBeforeMount(() => {
-  const role = JSON.parse(localStorage.getItem('user'))
-  if (role?.role !== route.meta.metaMode) {
+  if (user?.value.role !== route.meta.metaMode) {
     router.push('/blocked')
   }
-  // console.log(route.meta.metaMode != role.role)
 })
 
+const handleLogout = () => {
+  Swal.fire({
+  title: "Logout?",
+  text: "Apakah anda ingin logout?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Ya"
+}).then((result) => {
+  if (result.isConfirmed) {
+    localStorage.clear()
+    router.push('/login')
+  }
+});
+}
 </script>
 
 
@@ -45,7 +61,8 @@ onBeforeMount(() => {
                 }">{{ m.name }}</router-link>
       </li>
       <li>
-        <router-link to="/login">Logout</router-link>
+        <button @click="handleLogout">Logout</button>
+        <!-- <router-link to="/login">Logout</router-link> -->
       </li>
     </ul>
   </div>
