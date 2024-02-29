@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 
 const typeValue = ref('');
@@ -10,6 +10,11 @@ const erasingSpeed = 100;
 const newTextDelay = 2000;
 let typeArrayIndex = 0;
 let charIndex = 0;
+const carouselItems = ref([
+  { imageSrc: "/maskot/maskot-3.png" },
+  { imageSrc: "/maskot/maskot-5.png" },
+  { imageSrc: "/maskot/maskot-2.png" },
+])
 
 const typeText = () => {
   if (charIndex < typeArray[typeArrayIndex].length) {
@@ -39,53 +44,32 @@ const eraseText = () => {
 
     setTimeout(typeText, typingSpeed + 1000);
   }
-};
-
+}
 onMounted(() => {
   initFlowbite()
   setTimeout(typeText, newTextDelay + 200);
-});
+})
 </script>
 
 
 <template>
-  <section class="flex bg-kuning-difest py-[5rem] items-center justify-center px-3 md:px-3" id="sambutan-direktur" aria-label="Sambutan Direktur">
-    <div class="flex flex-wrap rounded-lg p-[3rem] gap-[3rem]">
-      <div class="w-[30rem] mx-auto bg-transparent rounded-[100%] object-cover">
-        <div id="default-carousel" class="relative z-0 h-[35rem] w-[25rem] sm:h-[27rem] sm:pt-[5rem] mx-auto" data-carousel="slide">
-        <!-- Carousel wrapper -->
-          <div class="relative overflow-hidden rounded-lg h-[30rem] sm:h-[20rem]">
-              <!-- Item 1 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="/maskot/maskot-2.png" class="absolute block object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[20rem] h-[20rem] mx-auto bg-white rounded-[100%]" alt="...">
-              </div>
-              <!-- Item 2 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="/maskot/maskot-3.png" class="absolute block object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[20rem] h-[20rem] mx-auto bg-white rounded-[100%]" alt="...">
-              </div>
-              <!-- Item 3 -->
-              <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                  <img src="/maskot/maskot-5.png" class="absolute block object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[20rem] h-[20rem] mx-auto bg-white rounded-[100%]" alt="...">
-              </div>
-          </div>
-        </div>
-        <!-- <img src="/maskot/maskot-2.png" class="w-[15rem] h-[15rem] mx-auto bg-white rounded-[100%] object-cover" alt="Foto Direktur"> -->
+  <section class="flex bg-kuning-difest py-[5rem] items-center justify-center" id="sambutan-direktur" aria-label="Sambutan Direktur">
+    <div class="hero-content flex-col lg:flex-row gap-[2rem]">
+    <div class="max-w-sm carousel rounded-box shadow-2xl bg-neutral-50 object-cover overflow-hidden relative">
+      <div class="carousel-track">
+        <div v-for="(item, index) in carouselItems" :key="index" class="carousel-item">
+          <img :src="item.imageSrc" class="w-full" :alt="'Carousel Image ' + (index)" />
+        </div> 
       </div>
-      <div class="grid rounded-lg md:w-[40rem]">
-        <div class="flex my-auto">
-          <span class="text-5xl font-bold font-mono text-hijau-difest">{{ typeValue }}</span>
-          <span class="cursor" :class="{'typing':typeStatus}"></span>
-        </div>
-        <h3 class="font-serif font-bold text-justify mt-[2rem] md:mt-0">
-          Nama kegiatan ini yaitu Digital Festival Nasional
-          (DIFEST) merupakan sebuah kegiatan yang
-          diselenggarakan oleh Himpunan Mahasiswa Teknologi
-          Informasi dan Komputer Politeknik Negeri Subang
-          (HIMATIKOM POLSUB) dimana di dalamnya berisi
-          lomba-lomba bidang IT, webinar nasional dan showcase.
-        </h3>
     </div>
+    <div>
+      <h1 class="text-5xl font-bold">
+        <span class="text-5xl font-bold font-mono text-hijau-difest-hover">{{ typeValue }}</span>
+        <span class="cursor" :class="{'typing':typeStatus}"></span>
+      </h1>
+      <p class="py-6 text-neutral-950">Nama kegiatan ini yaitu Digital Festival Nasional (DIFEST) merupakan sebuah kegiatan yang diselenggarakan oleh Himpunan Mahasiswa Teknologi Informasi dan Komputer Politeknik Negeri Subang (HIMATIKOM POLSUB) dimana di dalamnya berisi lomba-lomba bidang IT, webinar nasional dan showcase.</p>
     </div>
+  </div>
   </section>
 </template>
 
@@ -111,5 +95,27 @@ onMounted(() => {
     49% { background-color: #20C2C2; }
     50% { background-color: transparent; }
     99% { background-color: transparent; }
+  }
+
+  .carousel {
+  overflow: hidden;
+  }
+
+  .carousel-track {
+  display: flex;
+  animation: slide 10s infinite alternate; /* Adjust duration and timing as needed */
+  }
+
+  .carousel-item {
+  flex: 0 0 100%; /* Ensure each item takes up the full width */
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-200%);
+    }
   }
 </style>

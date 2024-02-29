@@ -1,5 +1,4 @@
 <script setup>
-import DashboardLayout from './views/DashboardLayout.vue'
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 onMounted(() => {
@@ -8,7 +7,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <DashboardLayout />
+  <RouterView />
   <!-- <RouterView /> -->
 </template>
 
