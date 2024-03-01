@@ -37,7 +37,7 @@ const fileInputs = ref([
 ])
 
 const getDataCompetition = async() => {
-  const getCompe = await axios.get(`http://localhost:3030/api/competitions`)
+  const getCompe = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/competitions`)
   competition.value = getCompe.data
 }
 
@@ -97,7 +97,7 @@ const onSubmit = async () => {
   // }
 
   // try {
-    // const response = await axios.post(`http://localhost:3030/api/competition/submit`, theData, {
+    // const response = await axios.post(`https://server-difest5-0.himatikom-polsub.com/api/competition/submit`, theData, {
     //   headers: {
     //     'Content-Type': 'multipart/form-data',
     //   },

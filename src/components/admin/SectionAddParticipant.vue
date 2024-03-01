@@ -29,15 +29,18 @@ const handleSubmit = async() => {
     role: formData.value.role
   }
   try {
-    const response = await axios.post(`http://localhost:3030/api/participant/insert`, newData)
+    const response = await axios.post(`https://server-difest5-0.himatikom-polsub.com/api/participant/insert`, newData)
     // console.log(response)
     if (response.status == 201) {
       Swal.fire({
         title: 'Berhasil',
         icon: 'success',
         text: 'Berhasil membuat data participant'
+      }).then((res) => {
+        if (res.isConfirmed) {
+          router.push('/admin/participant-manage')
+        }
       })
-      router.push('/admin/participant-manage')
     } else {
 
     }
@@ -47,7 +50,7 @@ const handleSubmit = async() => {
 }
 
 const getAllCompetition = async () => {
-  const response = await axios.get(`http://localhost:3030/api/competitions`)
+  const response = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/competitions`)
   // console.log(response)
   if (response.status == 200) {
     competitons.value = response.data

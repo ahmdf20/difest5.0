@@ -5,7 +5,7 @@ import axios from 'axios'
 const timelines = ref([])
 
 const getDataTimeline = async() => {
-  const dataTimeline = await axios.get(`http://localhost:3030/api/timelines`)
+  const dataTimeline = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/timelines`)
   timelines.value = dataTimeline.data
 }
 

@@ -20,7 +20,7 @@ const handleSubmit = async() => {
     newPassword: formData.value.newPassword,
   }
   try {
-    const checkOldPassword = await axios.post(`http://localhost:3030/api/participant/check-password`, newData)
+    const checkOldPassword = await axios.post(`https://server-difest5-0.himatikom-polsub.com/api/participant/check-password`, newData)
     // Jika password lama tidak sesuai
     if (checkOldPassword.status == 202) {
       Swal.fire({
@@ -46,7 +46,7 @@ const handleSubmit = async() => {
       })
     }
 
-    const updateNewPassword = await axios.post(`http://localhost:3030/api/participant/update-password`, newData)
+    const updateNewPassword = await axios.post(`https://server-difest5-0.himatikom-polsub.com/api/participant/update-password`, newData)
     if (updateNewPassword.status == 201) {
       Swal.fire({
         title: 'Berhasil',

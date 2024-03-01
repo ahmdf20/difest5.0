@@ -11,7 +11,7 @@
 
   const getAllParticipant = async() => {
       const response = await axios.get(
-      `http://localhost:3030/api/submissions?page=${currentPage.value}&limit=${itemsPerPage.value}`
+      `https://server-difest5-0.himatikom-polsub.com/api/submissions?page=${currentPage.value}&limit=${itemsPerPage.value}`
     );
     if (response.status == 201) {
       submission.value = response.data.data;
@@ -40,7 +40,7 @@
   }
 
   const handleDownload = async(author, path) => {
-    const url = `http://localhost:3030/submissions/${path}`
+    const url = `https://server-difest5-0.himatikom-polsub.com/submissions/${path}`
     // Request pada server
     const response = await axios.get(url, {
       responseType: 'blob'

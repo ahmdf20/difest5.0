@@ -6,7 +6,7 @@ const user = ref([])
 const userSession = ref(JSON.parse(localStorage.getItem('user')))
 
 const getUserLogin = async() => {
-  const response = await axios.get(`http://localhost:3030/api/user/row/get?userid=${userSession.value.userid}`)
+  const response = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/user/row/get?userid=${userSession.value.userid}`)
   if (response.status == 200) {
     user.value = response.data.data
     // console.log(user.value.name)

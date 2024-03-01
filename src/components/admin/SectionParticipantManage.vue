@@ -11,7 +11,7 @@
 
   const getAllParticipant = async() => {
       const response = await axios.get(
-      `http://localhost:3030/api/participant/all?page=${currentPage.value}&limit=${itemsPerPage.value}`
+      `https://server-difest5-0.himatikom-polsub.com/api/participant/all?page=${currentPage.value}&limit=${itemsPerPage.value}`
     );
     if (response.status == 201) {
       participant.value = response.data.data;
@@ -25,7 +25,7 @@
 
   const handlePageChange = (page) => {
     currentPage.value = page
-    fetchItems()
+    getAllParticipant()
   };
 
   const getPaginationNumbers = () => {
@@ -43,7 +43,7 @@
     <router-link :to="{ name: 'Add Participant' } " class="btn mb-[1rem] btn-success">Tambah Data</router-link>
     <div class="card card-compact bg-kuning-difest shadow-xl p-[2rem] text-neutral">
       <h1 class="font-extrabold text-2xl text-center mb-[2rem]">Participant Manage</h1>
-      <div class="overflow-auto max-h-[50dvh]">
+      <div class="overflow-auto max-h-[60dvh]">
         <table class="table text-neutral" id="participant_table">
           <!-- head -->
           <thead class="text-neutral">

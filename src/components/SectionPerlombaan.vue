@@ -9,7 +9,7 @@ import axios from 'axios'
 const comp = ref([])
 
 const getDataCompetition = async () => {
-  const dataComp = await axios.get(`http://localhost:3030/api/competitions`)
+  const dataComp = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/competitions`)
   // console.log(dataComp)
   comp.value = dataComp.data
 }

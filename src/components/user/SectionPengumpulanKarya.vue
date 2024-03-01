@@ -35,7 +35,7 @@ const handleSubmit = async () => {
   newFormData.append('userid', formData.value.userid)
 
   try {
-    const response = await axios.post(`http://localhost:3030/api/submission/insert`, newFormData, {
+    const response = await axios.post(`https://server-difest5-0.himatikom-polsub.com/api/submission/insert`, newFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -60,7 +60,7 @@ const checkKaryaIsSubmitted = async () => {
   // const dataSend = {
   //   userid: userSession.value.userid
   // }
-  const response = await axios.get(`http://localhost:3030/api/submission/check?userid=${userSession.value.userid}`)
+  const response = await axios.get(`https://server-difest5-0.himatikom-polsub.com/api/submission/check?userid=${userSession.value.userid}`)
   // console.log(response.data)
   if (response.data.length == 0) {
     isSubmit.value = false
